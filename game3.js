@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Mostrar el modal al cargar la página
     modal.style.display = "flex";
 
-    // Tamaños y posiciones personalizadas para cada EPP (ajustados para ser más pequeños)
+    // Tamaños personalizados para cada EPP (más pequeños)
     const eppSizes = {
-        casco: { width: "40px", height: "40px", top: "20px", left: "80px" }, // Ajuste para el casco
-        gafas: { width: "25px", height: "15px", top: "95px", left: "90px" }, // Ajuste para las gafas
-        guantes: { width: "20px", height: "20px", top: "210px", left: "35px" }, // Ajuste para los guantes
-        chaleco: { width: "60px", height: "80px", top: "160px", left: "70px" }, // Ajuste para el chaleco
-        botas: { width: "30px", height: "50px", top: "330px", left: "85px" }, // Ajuste para las botas
+        casco: { width: "40px", height: "40px" }, // Ajuste para el casco
+        gafas: { width: "20px", height: "15px" }, // Ajuste para las gafas
+        guantes: { width: "20px", height: "20px" }, // Ajuste para los guantes
+        chaleco: { width: "50px", height: "70px" }, // Ajuste para el chaleco
+        botas: { width: "25px", height: "40px" }, // Ajuste para las botas
     };
 
     // Para evitar múltiples colocaciones
@@ -72,14 +72,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 newItem.classList.add("epp-item");
                 const itemType = selectedItem.alt.toLowerCase();
 
-                // Aplicar tamaño y posición personalizada según el tipo de EPP
+                // Aplicar tamaño personalizado según el tipo de EPP
                 if (eppSizes[itemType]) {
                     newItem.style.width = eppSizes[itemType].width;
                     newItem.style.height = eppSizes[itemType].height;
-                    newItem.style.top = eppSizes[itemType].top;
-                    newItem.style.left = eppSizes[itemType].left;
                 }
 
+                // Posicionar el EPP donde se soltó
+                newItem.style.top = `${touch.clientY - rect.top - 25}px`;
+                newItem.style.left = `${touch.clientX - rect.left - 25}px`;
                 newItem.style.pointerEvents = "auto";
                 person.appendChild(newItem);
 
