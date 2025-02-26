@@ -42,8 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedItem.classList.add("epp-item"); // Aplicar estilos de EPP
         selectedItem.style.position = "absolute";
         selectedItem.style.pointerEvents = "none"; // Evitar interferencias
-        selectedItem.style.width = eppSizes[itemType].width; // Aplicar tamaño inicial
-        selectedItem.style.height = eppSizes[itemType].height; // Aplicar tamaño inicial
+
+        // Aplicar tamaño personalizado según el tipo de EPP
+        if (eppSizes[itemType]) {
+            selectedItem.style.width = eppSizes[itemType].width;
+            selectedItem.style.height = eppSizes[itemType].height;
+        }
 
         // Calcular el offset (diferencia entre el clic y la posición del elemento)
         const rect = e.target.getBoundingClientRect();
