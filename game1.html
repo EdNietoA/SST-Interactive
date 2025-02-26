@@ -10,25 +10,46 @@
             text-align: center;
             margin-top: 50px;
         }
-        .result-image {
-            width: 50px;
-            height: 50px;
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             margin-top: 20px;
         }
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 16px;
+        .option {
             cursor: pointer;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            padding: 10px;
+            width: 200px;
+        }
+        .option img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result img {
+            width: 50px;
+            height: 50px;
         }
     </style>
 </head>
 <body>
     <h1>Juego Interactivo de SST</h1>
-    <p>¿Es seguro levantar objetos pesados doblándose por las rodillas?</p>
-    <button onclick="checkAnswer(true)">Sí</button>
-    <button onclick="checkAnswer(false)">No</button>
-    <div id="result"></div>
+    <p>¿Cuál es la forma correcta de levantar objetos pesados?</p>
+    <div class="options">
+        <div class="option" onclick="checkAnswer(true)">
+            <img src="correcta.jpg" alt="Doblándose por las rodillas">
+            <p>1. Doblándome por las rodillas</p>
+        </div>
+        <div class="option" onclick="checkAnswer(false)">
+            <img src="incorrecta.jpg" alt="Doblándose por la cintura">
+            <p>2. Doblándome por la cintura</p>
+        </div>
+    </div>
+    <div class="result" id="result"></div>
     <script src="game1.js"></script>
 </body>
 </html>
