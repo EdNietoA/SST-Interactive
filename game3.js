@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (selectedItem) {
             const rect = person.getBoundingClientRect();
             const touch = e.touches ? e.changedTouches[0] : e;
+            const itemType = selectedItem.alt.toLowerCase();
 
             // Verificar si el elemento se soltó dentro de la figura humana
             if (
