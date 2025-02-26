@@ -4,19 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
         resultDiv.innerHTML = "";
 
         if (isCorrect) {
-            alert("¡Correcto! Levantar objetos pesados doblándose por las rodillas es más seguro.");
             const checkImage = document.createElement("img");
             checkImage.src = "check.png";
             checkImage.alt = "Correcto";
-            checkImage.className = "result-image";
             resultDiv.appendChild(checkImage);
+            alert("¡Correcto! Levantar objetos pesados doblándose por las rodillas es más seguro.");
         } else {
-            alert("Incorrecto. Levantar objetos pesados doblándose por la cintura puede causar lesiones.");
             const xImage = document.createElement("img");
             xImage.src = "x.png";
             xImage.alt = "Incorrecto";
-            xImage.className = "result-image";
             resultDiv.appendChild(xImage);
+            alert("Incorrecto. Levantar objetos pesados doblándose por la cintura puede causar lesiones.");
         }
     }
 
