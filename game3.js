@@ -1,64 +1,102 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const person = document.getElementById("person");
-    const draggableItems = document.querySelectorAll(".draggable");
-
-    let selectedItem = null;
-
-    // Función para manejar el inicio del arrastre (touch o clic)
-    function startDrag(e) {
-        e.preventDefault();
-        selectedItem = e.target.cloneNode(true); // Clonar la imagen seleccionada
-        selectedItem.style.position = "absolute";
-        selectedItem.style.pointerEvents = "none"; // Evitar interferencias
-        document.body.appendChild(selectedItem);
-        moveItem(e);
-    }
-
-    // Función para mover el elemento (touch o clic)
-    function moveItem(e) {
-        if (selectedItem) {
-            const touch = e.touches ? e.touches[0] : e;
-            selectedItem.style.top = `${touch.clientY - 25}px`;
-            selectedItem.style.left = `${touch.clientX - 25}px`;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viste a la Persona con EPP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f4;
         }
-    }
-
-    // Función para finalizar el arrastre (touch o clic)
-    function endDrag(e) {
-        if (selectedItem) {
-            const rect = person.getBoundingClientRect();
-            const touch = e.touches ? e.changedTouches[0] : e;
-
-            // Verificar si el elemento se soltó dentro de la figura humana
-            if (
-                touch.clientX >= rect.left &&
-                touch.clientX <= rect.right &&
-                touch.clientY >= rect.top &&
-                touch.clientY <= rect.bottom
-            ) {
-                const newItem = selectedItem.cloneNode(true);
-                newItem.style.position = "absolute";
-                newItem.style.top = `${touch.clientY - rect.top - 25}px`;
-                newItem.style.left = `${touch.clientX - rect.left - 25}px`;
-                newItem.style.pointerEvents = "auto";
-                person.appendChild(newItem);
-            }
-
-            // Eliminar el elemento clonado
-            document.body.removeChild(selectedItem);
-            selectedItem = null;
+        h1 {
+            color: #007bff;
         }
-    }
-
-    // Asignar eventos a las imágenes arrastrables
-    draggableItems.forEach(item => {
-        item.addEventListener("mousedown", startDrag);
-        item.addEventListener("touchstart", startDrag);
-    });
-
-    // Asignar eventos de movimiento y fin de arrastre
-    document.addEventListener("mousemove", moveItem);
-    document.addEventListener("touchmove", moveItem);
-    document.addEventListener("mouseup", endDrag);
-    document.addEventListener("touchend", endDrag);
-});
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .epp-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .epp-option {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+        .epp-option img {
+            width: 100%;
+            height: 100%;
+        }
+        .person {
+            position: relative;
+            width: 200px;
+            height: 400px;
+            background-color: #fff;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            background-image: url('persona.png'); /* Imagen de la persona */
+            background-size: cover;
+            background-position: center;
+        }
+        .epp-item {
+            position: absolute;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+        }
+        .epp-item img {
+            width: 100%;
+            height: 100%;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Viste a la Persona con EPP</h1>
+    <div class="container">
+        <!-- Opciones de EPP (imágenes) -->
+        <div class="epp-options">
+            <div class="epp-option" data-item="casco">
+                <img src="casco.png" alt="Casco" class="draggable">
+            </div>
+            <div class="epp-option" data-item="gafas">
+                <img src="gafas.png" alt="Gafas de Seguridad" class="draggable">
+            </div>
+            <div class="epp-option" data-item="guantes">
+                <img src="guantes.png" alt="Guantes" class="draggable">
+            </div>
+            <div class="epp-option" data-item="chaleco">
+                <img src="chaleco.png" alt="Chaleco Reflectivo" class="draggable">
+            </div>
+            <div class="epp-option" data-item="botas">
+                <img src="botas.png" alt="Botas de Seguridad" class="draggable">
+            </div>
+        </div>
+        <!-- Figura humana -->
+        <div class="person" id="person">
+            <!-- Aquí se colocarán los EPP -->
+        </div>
+    </div>
+    <!-- Botón para volver al index -->
+    <button class="back-button" onclick="window.location.href = 'index.html';">Volver al Inicio</button>
+    <script src="game3.js"></script>
+</body>
+</html>
