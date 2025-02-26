@@ -26,15 +26,13 @@
             gap: 10px;
         }
         .epp-option {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
+            width: 50px;
+            height: 50px;
+            cursor: grab;
         }
-        .epp-option:hover {
-            background-color: #0056b3;
+        .epp-option img {
+            width: 100%;
+            height: 100%;
         }
         .person {
             position: relative;
@@ -72,13 +70,23 @@
 <body>
     <h1>Viste a la Persona con EPP</h1>
     <div class="container">
-        <!-- Opciones de EPP -->
+        <!-- Opciones de EPP (imágenes) -->
         <div class="epp-options">
-            <div class="epp-option" data-item="casco">Casco</div>
-            <div class="epp-option" data-item="gafas">Gafas de Seguridad</div>
-            <div class="epp-option" data-item="guantes">Guantes</div>
-            <div class="epp-option" data-item="chaleco">Chaleco Reflectivo</div>
-            <div class="epp-option" data-item="botas">Botas de Seguridad</div>
+            <div class="epp-option" data-item="casco">
+                <img src="casco.png" alt="Casco">
+            </div>
+            <div class="epp-option" data-item="gafas">
+                <img src="gafas.png" alt="Gafas de Seguridad">
+            </div>
+            <div class="epp-option" data-item="guantes">
+                <img src="guantes.png" alt="Guantes">
+            </div>
+            <div class="epp-option" data-item="chaleco">
+                <img src="chaleco.png" alt="Chaleco Reflectivo">
+            </div>
+            <div class="epp-option" data-item="botas">
+                <img src="botas.png" alt="Botas de Seguridad">
+            </div>
         </div>
         <!-- Figura humana -->
         <div class="person" id="person">
