@@ -36,12 +36,26 @@
             font-size: 18px;
             font-weight: bold;
         }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <h1>Juego de Concéntrese de SST</h1>
     <div id="game-board"></div>
     <div id="message"></div>
+    <!-- Botón para volver al index -->
+    <button class="back-button" onclick="window.location.href = 'index.html';">Volver al Inicio</button>
     <script src="game2.js"></script>
 </body>
 </html>
