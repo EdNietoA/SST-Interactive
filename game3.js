@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Tamaños personalizados para cada EPP (más pequeños)
     const eppSizes = {
         casco: { width: "40px", height: "40px" }, // Ajuste para el casco
-        gafas: { width: "5px", height: "5px" }, // Ajuste para las gafas
-        guantes: { width: "40px", height: "40px" }, // Ajuste para los guantes
-        chaleco: { width: "5px", height: "5px" }, // Ajuste para el chaleco
-        botas: { width: "5px", height: "5px" }, // Ajuste para las botas
+        gafas: { width: "20px", height: "15px" }, // Ajuste para las gafas
+        guantes: { width: "20px", height: "20px" }, // Ajuste para los guantes
+        chaleco: { width: "50px", height: "70px" }, // Ajuste para el chaleco
+        botas: { width: "25px", height: "40px" }, // Ajuste para las botas
     };
 
     // Para evitar múltiples colocaciones
@@ -78,9 +78,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     newItem.style.height = eppSizes[itemType].height;
                 }
 
-                // Posicionar el EPP donde se soltó
-                newItem.style.top = `${touch.clientY - rect.top - 25}px`;
-                newItem.style.left = `${touch.clientX - rect.left - 25}px`;
+                // Posicionar el EPP donde se soltó (ajuste de coordenadas)
+                newItem.style.top = `${touch.clientY - rect.top - (parseInt(newItem.style.height) / 2}px`;
+                newItem.style.left = `${touch.clientX - rect.left - (parseInt(newItem.style.width) / 2}px`;
                 newItem.style.pointerEvents = "auto";
                 person.appendChild(newItem);
 
