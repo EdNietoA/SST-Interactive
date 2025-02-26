@@ -1,36 +1,64 @@
 document.addEventListener("DOMContentLoaded", () => {
     const person = document.getElementById("person");
-    const eppOptions = document.querySelectorAll(".epp-option img");
+    const draggableItems = document.querySelectorAll(".draggable");
 
-    // Evento al comenzar a arrastrar un EPP
-    eppOptions.forEach(img => {
-        img.addEventListener("dragstart", (e) => {
-            // Guardar la ruta de la imagen en el evento de arrastre
-            e.dataTransfer.setData("text/plain", e.target.src);
-        });
-    });
+    let selectedItem = null;
 
-    // Evento al soltar un EPP en la figura humana
-    person.addEventListener("dragover", (e) => {
-        e.preventDefault(); // Permitir soltar el elemento
-    });
-
-    person.addEventListener("drop", (e) => {
+    // Función para manejar el inicio del arrastre (touch o clic)
+    function startDrag(e) {
         e.preventDefault();
-        const src = e.dataTransfer.getData("text/plain"); // Obtener la ruta de la imagen
+        selectedItem = e.target.cloneNode(true); // Clonar la imagen seleccionada
+        selectedItem.style.position = "absolute";
+        selectedItem.style.pointerEvents = "none"; // Evitar interferencias
+        document.body.appendChild(selectedItem);
+        moveItem(e);
+    }
 
-        // Crear un nuevo elemento de EPP
-        const eppItem = document.createElement("img");
-        eppItem.src = src;
-        eppItem.classList.add("epp-item");
+    // Función para mover el elemento (touch o clic)
+    function moveItem(e) {
+        if (selectedItem) {
+            const touch = e.touches ? e.touches[0] : e;
+            selectedItem.style.top = `${touch.clientY - 25}px`;
+            selectedItem.style.left = `${touch.clientX - 25}px`;
+        }
+    }
 
-        // Posicionar el EPP en la figura humana
-        const rect = person.getBoundingClientRect();
-        eppItem.style.position = "absolute";
-        eppItem.style.top = `${e.clientY - rect.top - 25}px`; // Ajustar posición
-        eppItem.style.left = `${e.clientX - rect.left - 25}px`; // Ajustar posición
+    // Función para finalizar el arrastre (touch o clic)
+    function endDrag(e) {
+        if (selectedItem) {
+            const rect = person.getBoundingClientRect();
+            const touch = e.touches ? e.changedTouches[0] : e;
 
-        // Agregar el EPP a la figura humana
-        person.appendChild(eppItem);
+            // Verificar si el elemento se soltó dentro de la figura humana
+            if (
+                touch.clientX >= rect.left &&
+                touch.clientX <= rect.right &&
+                touch.clientY >= rect.top &&
+                touch.clientY <= rect.bottom
+            ) {
+                const newItem = selectedItem.cloneNode(true);
+                newItem.style.position = "absolute";
+                newItem.style.top = `${touch.clientY - rect.top - 25}px`;
+                newItem.style.left = `${touch.clientX - rect.left - 25}px`;
+                newItem.style.pointerEvents = "auto";
+                person.appendChild(newItem);
+            }
+
+            // Eliminar el elemento clonado
+            document.body.removeChild(selectedItem);
+            selectedItem = null;
+        }
+    }
+
+    // Asignar eventos a las imágenes arrastrables
+    draggableItems.forEach(item => {
+        item.addEventListener("mousedown", startDrag);
+        item.addEventListener("touchstart", startDrag);
     });
+
+    // Asignar eventos de movimiento y fin de arrastre
+    document.addEventListener("mousemove", moveItem);
+    document.addEventListener("touchmove", moveItem);
+    document.addEventListener("mouseup", endDrag);
+    document.addEventListener("touchend", endDrag);
 });
