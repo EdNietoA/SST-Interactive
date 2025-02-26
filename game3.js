@@ -3,14 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const eppOptions = document.querySelectorAll(".epp-option");
 
     // Función para crear un elemento de EPP arrastrable
-    function createDraggableEPP(item) {
+    function createDraggableEPP(item, src) {
         const eppItem = document.createElement("div");
         eppItem.classList.add("epp-item");
         eppItem.dataset.item = item;
 
         // Crear una imagen para el EPP
         const img = document.createElement("img");
-        img.src = `${item}.png`; // Asume que las imágenes tienen nombres como "casco.png", "gafas.png", etc.
+        img.src = src;
         img.alt = item;
 
         eppItem.appendChild(img);
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Evento al comenzar a arrastrar
         eppItem.addEventListener("dragstart", (e) => {
-            e.dataTransfer.setData("text/plain", item);
+            e.dataTransfer.setData("text/plain", JSON.stringify({ item, src }));
         });
 
         return eppItem;
@@ -33,10 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     person.addEventListener("drop", (e) => {
         e.preventDefault();
-        const item = e.dataTransfer.getData("text/plain");
+        const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+        const { item, src } = data;
 
         // Crear y colocar el EPP en la figura humana
-        const eppItem = createDraggableEPP(item);
+        const eppItem = createDraggableEPP(item, src);
         const rect = person.getBoundingClientRect();
         eppItem.style.top = `${e.clientY - rect.top - 25}px`; // Ajustar posición
         eppItem.style.left = `${e.clientX - rect.left - 25}px`; // Ajustar posición
@@ -45,15 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Asignar eventos a las opciones de EPP
     eppOptions.forEach(option => {
-        option.addEventListener("click", () => {
+        option.addEventListener("dragstart", (e) => {
             const item = option.dataset.item;
-            const eppItem = createDraggableEPP(item);
-            document.body.appendChild(eppItem);
-
-            // Posicionar el EPP cerca del cursor
-            eppItem.style.position = "absolute";
-            eppItem.style.top = `${event.clientY}px`;
-            eppItem.style.left = `${event.clientX}px`;
+            const src = option.querySelector("img").src;
+            e.dataTransfer.setData("text/plain", JSON.stringify({ item, src }));
         });
     });
 });
