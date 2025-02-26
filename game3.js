@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Mostrar el modal al cargar la página
     modal.style.display = "flex";
 
-    // Tamaños y posiciones personalizadas para cada EPP (más pequeños)
+    // Tamaños y posiciones personalizadas para cada EPP (ajustados para ser más pequeños)
     const eppSizes = {
         casco: { width: "40px", height: "40px", top: "20px", left: "80px" }, // Ajuste para el casco
         gafas: { width: "25px", height: "15px", top: "95px", left: "90px" }, // Ajuste para las gafas
@@ -40,6 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedItem.classList.add("epp-item"); // Aplicar estilos de EPP
         selectedItem.style.position = "absolute";
         selectedItem.style.pointerEvents = "none"; // Evitar interferencias
+        selectedItem.style.width = eppSizes[itemType].width; // Aplicar tamaño inicial
+        selectedItem.style.height = eppSizes[itemType].height; // Aplicar tamaño inicial
         document.body.appendChild(selectedItem);
         moveItem(e);
     }
