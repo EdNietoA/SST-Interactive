@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Seguridad y Salud en el Trabajo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #game {
+            margin-top: 20px;
+        }
+        .question {
+            margin-bottom: 10px;
+        }
+        .answer {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Juego de Seguridad y Salud en el Trabajo</h1>
+    <div id="game">
+        <div class="question">¿Cuál es la forma correcta de levantar objetos pesados?</div>
+        <button class="answer" onclick="checkAnswer(true)">Doblándome por las rodillas</button>
+        <button class="answer" onclick="checkAnswer(false)">Doblándome por la cintura</button>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
