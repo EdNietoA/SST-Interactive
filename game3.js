@@ -15,12 +15,19 @@ document.addEventListener("DOMContentLoaded", () => {
         botas: { width: "25px", height: "40px" }, // Ajuste para las botas
     };
 
+    // Zonas demarcadas para cada EPP (coordenadas relativas al contenedor .person)
+    const eppZones = {
+        casco: { top: "20px", left: "75px" }, // Zona para el casco (cabeza)
+        gafas: { top: "95px", left: "85px" }, // Zona para las gafas (ojos)
+        guantes: { top: "210px", left: "35px" }, // Zona para los guantes (manos)
+        chaleco: { top: "160px", left: "70px" }, // Zona para el chaleco (torso)
+        botas: { top: "330px", left: "85px" }, // Zona para las botas (pies)
+    };
+
     // Para evitar múltiples colocaciones
     const placedItems = new Set();
 
     let selectedItem = null;
-    let offsetX = 0;
-    let offsetY = 0;
 
     // Función para iniciar el juego
     function startGame() {
@@ -42,18 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedItem.classList.add("epp-item"); // Aplicar estilos de EPP
         selectedItem.style.position = "absolute";
         selectedItem.style.pointerEvents = "none"; // Evitar interferencias
-
-        // Aplicar tamaño personalizado según el tipo de EPP
-        if (eppSizes[itemType]) {
-            selectedItem.style.width = eppSizes[itemType].width;
-            selectedItem.style.height = eppSizes[itemType].height;
-        }
-
-        // Calcular el offset (diferencia entre el clic y la posición del elemento)
-        const rect = e.target.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-
+        selectedItem.style.width = eppSizes[itemType].width; // Aplicar tamaño inicial
+        selectedItem.style.height = eppSizes[itemType].height; // Aplicar tamaño inicial
         document.body.appendChild(selectedItem);
         moveItem(e);
     }
@@ -62,8 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function moveItem(e) {
         if (selectedItem) {
             const touch = e.touches ? e.touches[0] : e;
-            selectedItem.style.top = `${touch.clientY - offsetY}px`;
-            selectedItem.style.left = `${touch.clientX - offsetX}px`;
+            selectedItem.style.top = `${touch.clientY - 25}px`;
+            selectedItem.style.left = `${touch.clientX - 25}px`;
         }
     }
 
@@ -72,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (selectedItem) {
             const rect = person.getBoundingClientRect();
             const touch = e.touches ? e.changedTouches[0] : e;
+            const itemType = selectedItem.alt.toLowerCase();
 
             // Verificar si el elemento se soltó dentro de la figura humana
             if (
@@ -82,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
             ) {
                 const newItem = selectedItem.cloneNode(true);
                 newItem.classList.add("epp-item");
-                const itemType = selectedItem.alt.toLowerCase();
 
                 // Aplicar tamaño personalizado según el tipo de EPP
                 if (eppSizes[itemType]) {
@@ -90,9 +87,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     newItem.style.height = eppSizes[itemType].height;
                 }
 
-                // Posicionar el EPP donde se soltó
-                newItem.style.top = `${touch.clientY - rect.top - offsetY}px`;
-                newItem.style.left = `${touch.clientX - rect.left - offsetX}px`;
+                // Ajustar la posición del EPP a la zona demarcada correspondiente
+                if (eppZones[itemType]) {
+                    newItem.style.top = eppZones[itemType].top;
+                    newItem.style.left = eppZones[itemType].left;
+                }
+
                 newItem.style.pointerEvents = "auto";
                 person.appendChild(newItem);
 
