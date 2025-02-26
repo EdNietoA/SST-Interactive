@@ -10,12 +10,25 @@
             text-align: center;
             margin-top: 50px;
         }
+        .result-image {
+            width: 50px;
+            height: 50px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <h1>Juego Interactivo de SST</h1>
-    <p>Aquí se cargará el Juego Interactivo de SST.</p>
-
-    <script src="./game1.js"></script>
+    <p>¿Es seguro levantar objetos pesados doblándose por las rodillas?</p>
+    <button onclick="checkAnswer(true)">Sí</button>
+    <button onclick="checkAnswer(false)">No</button>
+    <div id="result"></div>
+    <script src="game1.js"></script>
 </body>
 </html>
