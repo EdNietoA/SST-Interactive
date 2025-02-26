@@ -3,57 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Seguridad y Salud en el Trabajo</title>
+    <title>Página de Inicio - Juegos SST</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
         }
-        #game {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .game-option {
+            margin: 20px;
         }
-        .question {
-            margin-bottom: 10px;
+        .game-option a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
         }
-        .answer {
-            margin: 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .image {
-            width: 200px;
-            height: auto;
-            margin: 10px;
-        }
-        .result-image {
-            width: 100px;
-            height: auto;
-            margin-top: 20px;
-        }
-        #result {
-            margin-top: 20px;
+        .game-option a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>Juego de Seguridad y Salud en el Trabajo</h1>
-    <div id="game">
-        <div class="question">¿Cuál es la forma correcta de levantar objetos pesados?</div>
-        <button class="answer" onclick="checkAnswer(true)">
-            <img src="correcta.jpg" alt="Correcta" class="image">
-            Doblándome por las rodillas
-        </button>
-        <button class="answer" onclick="checkAnswer(false)">
-            <img src="incorrecta.jpg" alt="Incorrecta" class="image">
-            Doblándome por la cintura
-        </button>
+    <h1>Juegos de Seguridad y Salud en el Trabajo</h1>
+    <div class="game-option">
+        <a href="game1.html">Juego Interactivo de SST</a>
     </div>
-    <div id="result"></div>
-    <script src="game.js"></script>
+    <div class="game-option">
+        <a href="game2.html">Juego de Concéntrese de SST</a>
+    </div>
 </body>
 </html>
