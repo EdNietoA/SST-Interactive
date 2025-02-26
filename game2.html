@@ -10,12 +10,38 @@
             text-align: center;
             margin-top: 50px;
         }
+        #game-board {
+            display: flex;
+            flex-wrap: wrap;
+            width: 220px;
+            margin: 20px auto;
+        }
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        .flipped {
+            background-color: #28a745;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <h1>Juego de Concéntrese de SST</h1>
-    <p>Aquí se cargará el Juego de Concéntrese de SST.</p>
-
+    <div id="game-board"></div>
+    <div id="message"></div>
     <script src="game2.js"></script>
 </body>
 </html>
