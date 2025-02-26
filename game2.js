@@ -9,9 +9,16 @@ document.addEventListener("DOMContentLoaded", () => {
         // Añade más pares de cartas según sea necesario
     ];
 
-    // Duplicar y mezclar cartas
-    const shuffledCards = cards.sort(() => 0.5 - Math.random());
+    // Mezclar cartas usando el algoritmo de Fisher-Yates
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
 
+    const shuffledCards = shuffleArray(cards);
     const gameBoard = document.getElementById("game-board");
     let flippedCards = [];
     let matchedPairs = 0;
@@ -32,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
             this.classList.add("flipped");
             this.innerText = this.dataset.content;
             flippedCards.push(this);
-
             if (flippedCards.length === 2) {
                 setTimeout(checkMatch, 1000);
             }
