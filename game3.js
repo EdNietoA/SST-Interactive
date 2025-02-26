@@ -11,11 +11,22 @@ document.addEventListener("DOMContentLoaded", () => {
         botas: { width: "60px", height: "80px", top: "320px", left: "70px" },
     };
 
+    // Para evitar múltiples colocaciones
+    const placedItems = new Set();
+
     let selectedItem = null;
 
     // Función para manejar el inicio del arrastre (touch o clic)
     function startDrag(e) {
         e.preventDefault();
+        const itemType = e.target.alt.toLowerCase();
+
+        // Verificar si el EPP ya fue colocado
+        if (placedItems.has(itemType)) {
+            alert("Este EPP ya ha sido colocado.");
+            return;
+        }
+
         selectedItem = e.target.cloneNode(true); // Clonar la imagen seleccionada
         selectedItem.classList.add("epp-item"); // Aplicar estilos de EPP
         selectedItem.style.position = "absolute";
@@ -60,6 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 newItem.style.pointerEvents = "auto";
                 person.appendChild(newItem);
+
+                // Marcar el EPP como colocado
+                placedItems.add(itemType);
             }
 
             // Eliminar el elemento clonado
