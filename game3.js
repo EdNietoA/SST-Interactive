@@ -49,8 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedItem.classList.add("epp-item"); // Aplicar estilos de EPP
         selectedItem.style.position = "absolute";
         selectedItem.style.pointerEvents = "none"; // Evitar interferencias
-        selectedItem.style.width = eppSizes[itemType].width; // Aplicar tamaño inicial
-        selectedItem.style.height = eppSizes[itemType].height; // Aplicar tamaño inicial
         document.body.appendChild(selectedItem);
         moveItem(e);
     }
@@ -59,8 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function moveItem(e) {
         if (selectedItem) {
             const touch = e.touches ? e.touches[0] : e;
-            selectedItem.style.top = `${touch.clientY - 25}px`;
-            selectedItem.style.left = `${touch.clientX - 25}px`;
+            selectedItem.style.top = `${touch.clientY - selectedItem.offsetHeight / 2}px`;
+            selectedItem.style.left = `${touch.clientX - selectedItem.offsetWidth / 2}px`;
         }
     }
 
