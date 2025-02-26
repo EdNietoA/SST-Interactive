@@ -1,20 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
     const person = document.getElementById("person");
     const draggableItems = document.querySelectorAll(".draggable");
+    const modal = document.getElementById("instructionModal");
+
+    // Mostrar el modal al cargar la página
+    modal.style.display = "flex";
 
     // Tamaños y posiciones personalizadas para cada EPP
     const eppSizes = {
-        casco: { width: "60px", height: "60px", top: "10px", left: "70px" },
-        gafas: { width: "50px", height: "30px", top: "80px", left: "75px" },
-        guantes: { width: "40px", height: "40px", top: "200px", left: "20px" },
-        chaleco: { width: "100px", height: "120px", top: "150px", left: "50px" },
-        botas: { width: "60px", height: "80px", top: "320px", left: "70px" },
+        casco: { width: "70px", height: "70px", top: "10px", left: "65px" }, // Aumentado un poco
+        gafas: { width: "40px", height: "25px", top: "85px", left: "80px" }, // Reducido
+        guantes: { width: "35px", height: "35px", top: "200px", left: "25px" }, // Reducido
+        chaleco: { width: "90px", height: "100px", top: "150px", left: "55px" }, // Reducido
+        botas: { width: "50px", height: "70px", top: "320px", left: "75px" }, // Reducido
     };
 
     // Para evitar múltiples colocaciones
     const placedItems = new Set();
 
     let selectedItem = null;
+
+    // Función para iniciar el juego
+    function startGame() {
+        modal.style.display = "none"; // Ocultar el modal
+    }
 
     // Función para manejar el inicio del arrastre (touch o clic)
     function startDrag(e) {
@@ -93,4 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("touchmove", moveItem);
     document.addEventListener("mouseup", endDrag);
     document.addEventListener("touchend", endDrag);
+
+    // Hacer la función startGame accesible globalmente
+    window.startGame = startGame;
 });
