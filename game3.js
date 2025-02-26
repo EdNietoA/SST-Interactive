@@ -2,6 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const person = document.getElementById("person");
     const draggableItems = document.querySelectorAll(".draggable");
 
+    // Tamaños y posiciones personalizadas para cada EPP
+    const eppSizes = {
+        casco: { width: "60px", height: "60px", top: "10px", left: "70px" },
+        gafas: { width: "50px", height: "30px", top: "80px", left: "75px" },
+        guantes: { width: "40px", height: "40px", top: "200px", left: "20px" },
+        chaleco: { width: "100px", height: "120px", top: "150px", left: "50px" },
+        botas: { width: "60px", height: "80px", top: "320px", left: "70px" },
+    };
+
     let selectedItem = null;
 
     // Función para manejar el inicio del arrastre (touch o clic)
@@ -38,9 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 touch.clientY <= rect.bottom
             ) {
                 const newItem = selectedItem.cloneNode(true);
-                newItem.style.position = "absolute";
-                newItem.style.top = `${touch.clientY - rect.top - 25}px`;
-                newItem.style.left = `${touch.clientX - rect.left - 25}px`;
+                newItem.classList.add("epp-item");
+                const itemType = selectedItem.alt.toLowerCase();
+
+                // Aplicar tamaño y posición personalizada según el tipo de EPP
+                if (eppSizes[itemType]) {
+                    newItem.style.width = eppSizes[itemType].width;
+                    newItem.style.height = eppSizes[itemType].height;
+                    newItem.style.top = eppSizes[itemType].top;
+                    newItem.style.left = eppSizes[itemType].left;
+                }
+
                 newItem.style.pointerEvents = "auto";
                 person.appendChild(newItem);
             }
