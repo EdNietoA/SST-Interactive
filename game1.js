@@ -17,3 +17,4 @@ function checkAnswer(isCorrect) {
         xImage.className = "result-image";
         resultDiv.appendChild(xImage);
     }
+}
