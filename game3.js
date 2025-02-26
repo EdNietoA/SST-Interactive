@@ -1,30 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     const person = document.getElementById("person");
-    const eppOptions = document.querySelectorAll(".epp-option");
+    const eppOptions = document.querySelectorAll(".epp-option img");
 
-    // Función para crear un elemento de EPP arrastrable
-    function createDraggableEPP(item, src) {
-        const eppItem = document.createElement("div");
-        eppItem.classList.add("epp-item");
-        eppItem.dataset.item = item;
-
-        // Crear una imagen para el EPP
-        const img = document.createElement("img");
-        img.src = src;
-        img.alt = item;
-
-        eppItem.appendChild(img);
-
-        // Hacer el elemento arrastrable
-        eppItem.draggable = true;
-
-        // Evento al comenzar a arrastrar
-        eppItem.addEventListener("dragstart", (e) => {
-            e.dataTransfer.setData("text/plain", JSON.stringify({ item, src }));
+    // Evento al comenzar a arrastrar un EPP
+    eppOptions.forEach(img => {
+        img.addEventListener("dragstart", (e) => {
+            // Guardar la ruta de la imagen en el evento de arrastre
+            e.dataTransfer.setData("text/plain", e.target.src);
         });
-
-        return eppItem;
-    }
+    });
 
     // Evento al soltar un EPP en la figura humana
     person.addEventListener("dragover", (e) => {
@@ -33,23 +17,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     person.addEventListener("drop", (e) => {
         e.preventDefault();
-        const data = JSON.parse(e.dataTransfer.getData("text/plain"));
-        const { item, src } = data;
+        const src = e.dataTransfer.getData("text/plain"); // Obtener la ruta de la imagen
 
-        // Crear y colocar el EPP en la figura humana
-        const eppItem = createDraggableEPP(item, src);
+        // Crear un nuevo elemento de EPP
+        const eppItem = document.createElement("img");
+        eppItem.src = src;
+        eppItem.classList.add("epp-item");
+
+        // Posicionar el EPP en la figura humana
         const rect = person.getBoundingClientRect();
+        eppItem.style.position = "absolute";
         eppItem.style.top = `${e.clientY - rect.top - 25}px`; // Ajustar posición
         eppItem.style.left = `${e.clientX - rect.left - 25}px`; // Ajustar posición
-        person.appendChild(eppItem);
-    });
 
-    // Asignar eventos a las opciones de EPP
-    eppOptions.forEach(option => {
-        option.addEventListener("dragstart", (e) => {
-            const item = option.dataset.item;
-            const src = option.querySelector("img").src;
-            e.dataTransfer.setData("text/plain", JSON.stringify({ item, src }));
-        });
+        // Agregar el EPP a la figura humana
+        person.appendChild(eppItem);
     });
 });
