@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Tamaños personalizados para cada EPP (más pequeños)
     const eppSizes = {
         casco: { width: "40px", height: "40px" }, // Ajuste para el casco
-        gafas: { width: "20px", height: "15px" }, // Ajuste para las gafas
-        guantes: { width: "20px", height: "20px" }, // Ajuste para los guantes
-        chaleco: { width: "50px", height: "70px" }, // Ajuste para el chaleco
-        botas: { width: "25px", height: "40px" }, // Ajuste para las botas
+        gafas: { width: "40px", height: "40px" }, // Ajuste para las gafas
+        guantes: { width: "40px", height: "40px" }, // Ajuste para los guantes
+        chaleco: { width: "40px", height: "40px" }, // Ajuste para el chaleco
+        botas: { width: "40px", height: "40px" }, // Ajuste para las botas
     };
 
     // Para evitar múltiples colocaciones
