@@ -1,7 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Mostrar el modal al cargar la página
+    const modal = document.getElementById("instructions-modal");
+    modal.style.display = "flex";
+
+    // Ocultar el modal y comenzar el juego al hacer clic en "Comenzar Juego"
+    document.getElementById("start-button").addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
     // Definir las parejas de cartas con temas de SST
     const cards = [
-        { id: 1, content: "EPP" }, // Equipo de Protección Personal
+        { id: 1, content: "EPP" },
         { id: 2, content: "EPP" },
         { id: 3, content: "Riesgo Eléctrico" },
         { id: 4, content: "Riesgo Eléctrico" },
@@ -15,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: 12, content: "Primeros Auxilios" },
     ];
 
-    // Mezclar cartas usando el algoritmo de Fisher-Yates
+    // Mezclar cartas
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -28,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameBoard = document.getElementById("game-board");
     let flippedCards = [];
     let matchedPairs = 0;
+    let attempts = 0;
 
     // Crear cartas en el tablero de juego
     shuffledCards.forEach(card => {
@@ -35,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cardElement.classList.add("card");
         cardElement.dataset.id = card.id;
         cardElement.dataset.content = card.content;
-        cardElement.innerText = "?"; // Texto inicial oculto
+        cardElement.innerText = "?";
         cardElement.addEventListener("click", flipCard);
         gameBoard.appendChild(cardElement);
     });
@@ -44,10 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function flipCard() {
         if (flippedCards.length < 2 && !this.classList.contains("flipped")) {
             this.classList.add("flipped");
-            this.innerText = this.dataset.content; // Mostrar el contenido de la carta
+            this.innerText = this.dataset.content;
             flippedCards.push(this);
             if (flippedCards.length === 2) {
-                setTimeout(checkMatch, 1000); // Verificar coincidencia después de 1 segundo
+                attempts++;
+                document.getElementById("message").innerText = `Intentos: ${attempts}`;
+                setTimeout(checkMatch, 1000);
             }
         }
     }
@@ -59,10 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
             matchedPairs++;
             flippedCards = [];
             if (matchedPairs === cards.length / 2) {
-                document.getElementById("message").innerText = "¡Has encontrado todas las parejas!";
+                document.getElementById("message").innerText = `¡Has encontrado todas las parejas en ${attempts} intentos!`;
             }
         } else {
-            // Voltear las cartas de nuevo si no coinciden
             card1.classList.remove("flipped");
             card1.innerText = "?";
             card2.classList.remove("flipped");
