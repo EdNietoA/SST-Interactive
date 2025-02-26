@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Tamaños y posiciones personalizadas para cada EPP
     const eppSizes = {
-        casco: { width: "70px", height: "70px", top: "10px", left: "65px" }, // Aumentado un poco
-        gafas: { width: "40px", height: "25px", top: "85px", left: "80px" }, // Reducido
-        guantes: { width: "35px", height: "35px", top: "200px", left: "25px" }, // Reducido
-        chaleco: { width: "90px", height: "100px", top: "150px", left: "55px" }, // Reducido
-        botas: { width: "50px", height: "70px", top: "320px", left: "75px" }, // Reducido
+        casco: { width: "80px", height: "80px", top: "15px", left: "60px" }, // Ajuste para el casco
+        gafas: { width: "50px", height: "30px", top: "90px", left: "75px" }, // Ajuste para las gafas
+        guantes: { width: "40px", height: "40px", top: "200px", left: "25px" }, // Ajuste para los guantes
+        chaleco: { width: "100px", height: "120px", top: "150px", left: "50px" }, // Ajuste para el chaleco
+        botas: { width: "60px", height: "80px", top: "320px", left: "70px" }, // Ajuste para las botas
     };
 
     // Para evitar múltiples colocaciones
