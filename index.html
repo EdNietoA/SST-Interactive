@@ -18,6 +18,17 @@
         }
         .answer {
             margin: 5px;
+            display: block;
+        }
+        .image {
+            width: 200px;
+            height: auto;
+            margin: 10px;
+        }
+        .result-image {
+            width: 100px;
+            height: auto;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -25,9 +36,16 @@
     <h1>Juego de Seguridad y Salud en el Trabajo</h1>
     <div id="game">
         <div class="question">¿Cuál es la forma correcta de levantar objetos pesados?</div>
-        <button class="answer" onclick="checkAnswer(true)">Doblándome por las rodillas</button>
-        <button class="answer" onclick="checkAnswer(false)">Doblándome por la cintura</button>
+        <button class="answer" onclick="checkAnswer(true)">
+            <img src="correcta.jpg" alt="Correcta" class="image">
+            Doblándome por las rodillas
+        </button>
+        <button class="answer" onclick="checkAnswer(false)">
+            <img src="incorrecta.jpg" alt="Incorrecta" class="image">
+            Doblándome por la cintura
+        </button>
     </div>
+    <div id="result"></div>
     <script src="game.js"></script>
 </body>
 </html>
