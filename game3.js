@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const placedItems = new Set();
 
     let selectedItem = null;
+    let offsetX = 0;
+    let offsetY = 0;
 
     // Función para iniciar el juego
     function startGame() {
@@ -42,6 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedItem.style.pointerEvents = "none"; // Evitar interferencias
         selectedItem.style.width = eppSizes[itemType].width; // Aplicar tamaño inicial
         selectedItem.style.height = eppSizes[itemType].height; // Aplicar tamaño inicial
+
+        // Calcular el offset (diferencia entre el clic y la posición del elemento)
+        const rect = e.target.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
         document.body.appendChild(selectedItem);
         moveItem(e);
     }
@@ -50,8 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function moveItem(e) {
         if (selectedItem) {
             const touch = e.touches ? e.touches[0] : e;
-            selectedItem.style.top = `${touch.clientY - 25}px`;
-            selectedItem.style.left = `${touch.clientX - 25}px`;
+            selectedItem.style.top = `${touch.clientY - offsetY}px`;
+            selectedItem.style.left = `${touch.clientX - offsetX}px`;
         }
     }
 
@@ -78,9 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     newItem.style.height = eppSizes[itemType].height;
                 }
 
-                // Posicionar el EPP donde se soltó (ajuste de coordenadas)
-                newItem.style.top = `${touch.clientY - rect.top - (parseInt(newItem.style.height) / 2}px`;
-                newItem.style.left = `${touch.clientX - rect.left - (parseInt(newItem.style.width) / 2}px`;
+                // Posicionar el EPP donde se soltó
+                newItem.style.top = `${touch.clientY - rect.top - offsetY}px`;
+                newItem.style.left = `${touch.clientX - rect.left - offsetX}px`;
                 newItem.style.pointerEvents = "auto";
                 person.appendChild(newItem);
 
