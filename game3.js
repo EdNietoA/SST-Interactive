@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Mostrar el modal al cargar la página
     modal.style.display = "flex";
 
-    // Tamaños y posiciones personalizadas para cada EPP (reducidos significativamente)
+    // Tamaños y posiciones personalizadas para cada EPP (más pequeños)
     const eppSizes = {
-        casco: { width: "50px", height: "50px", top: "20px", left: "75px" }, // Ajuste para el casco
-        gafas: { width: "30px", height: "20px", top: "95px", left: "85px" }, // Ajuste para las gafas
-        guantes: { width: "25px", height: "25px", top: "210px", left: "30px" }, // Ajuste para los guantes
-        chaleco: { width: "70px", height: "90px", top: "160px", left: "65px" }, // Ajuste para el chaleco
-        botas: { width: "40px", height: "60px", top: "330px", left: "80px" }, // Ajuste para las botas
+        casco: { width: "40px", height: "40px", top: "20px", left: "80px" }, // Ajuste para el casco
+        gafas: { width: "25px", height: "15px", top: "95px", left: "90px" }, // Ajuste para las gafas
+        guantes: { width: "20px", height: "20px", top: "210px", left: "35px" }, // Ajuste para los guantes
+        chaleco: { width: "60px", height: "80px", top: "160px", left: "70px" }, // Ajuste para el chaleco
+        botas: { width: "30px", height: "50px", top: "330px", left: "85px" }, // Ajuste para las botas
     };
 
     // Para evitar múltiples colocaciones
