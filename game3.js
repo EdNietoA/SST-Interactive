@@ -6,22 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Mostrar el modal al cargar la página
     modal.style.display = "flex";
 
-    // Tamaños personalizados para cada EPP (más pequeños)
+    // Tamaños personalizados para cada EPP (ajustados para ser más pequeños)
     const eppSizes = {
         casco: { width: "40px", height: "40px" }, // Ajuste para el casco
         gafas: { width: "20px", height: "15px" }, // Ajuste para las gafas
         guantes: { width: "20px", height: "20px" }, // Ajuste para los guantes
         chaleco: { width: "50px", height: "70px" }, // Ajuste para el chaleco
         botas: { width: "25px", height: "40px" }, // Ajuste para las botas
-    };
-
-    // Zonas demarcadas para cada EPP (coordenadas relativas al contenedor .person)
-    const eppZones = {
-        casco: { top: "20px", left: "75px" }, // Zona para el casco (cabeza)
-        gafas: { top: "95px", left: "85px" }, // Zona para las gafas (ojos)
-        guantes: { top: "210px", left: "35px" }, // Zona para los guantes (manos)
-        chaleco: { top: "160px", left: "70px" }, // Zona para el chaleco (torso)
-        botas: { top: "330px", left: "85px" }, // Zona para las botas (pies)
     };
 
     // Para evitar múltiples colocaciones
@@ -49,6 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedItem.classList.add("epp-item"); // Aplicar estilos de EPP
         selectedItem.style.position = "absolute";
         selectedItem.style.pointerEvents = "none"; // Evitar interferencias
+        selectedItem.style.width = eppSizes[itemType].width; // Aplicar tamaño inicial
+        selectedItem.style.height = eppSizes[itemType].height; // Aplicar tamaño inicial
         document.body.appendChild(selectedItem);
         moveItem(e);
     }
@@ -57,8 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function moveItem(e) {
         if (selectedItem) {
             const touch = e.touches ? e.touches[0] : e;
-            selectedItem.style.top = `${touch.clientY - selectedItem.offsetHeight / 2}px`;
-            selectedItem.style.left = `${touch.clientX - selectedItem.offsetWidth / 2}px`;
+            selectedItem.style.top = `${touch.clientY - 25}px`;
+            selectedItem.style.left = `${touch.clientX - 25}px`;
         }
     }
 
@@ -67,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (selectedItem) {
             const rect = person.getBoundingClientRect();
             const touch = e.touches ? e.changedTouches[0] : e;
-            const itemType = selectedItem.alt.toLowerCase();
 
             // Verificar si el elemento se soltó dentro de la figura humana
             if (
@@ -85,12 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     newItem.style.height = eppSizes[itemType].height;
                 }
 
-                // Ajustar la posición del EPP a la zona demarcada correspondiente
-                if (eppZones[itemType]) {
-                    newItem.style.top = eppZones[itemType].top;
-                    newItem.style.left = eppZones[itemType].left;
-                }
-
+                // Posicionar el EPP donde se soltó
+                newItem.style.top = `${touch.clientY - rect.top - 25}px`;
+                newItem.style.left = `${touch.clientX - rect.left - 25}px`;
                 newItem.style.pointerEvents = "auto";
                 person.appendChild(newItem);
 
