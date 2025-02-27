@@ -15,6 +15,15 @@ document.addEventListener("DOMContentLoaded", () => {
         botas: { width: "25px", height: "40px" }, // Ajuste para las botas
     };
 
+    // Zonas específicas para cada EPP (coordenadas relativas a la figura humana)
+    const eppZones = {
+        casco: { top: "10px", left: "75px" }, // Zona para el casco
+        gafas: { top: "60px", left: "80px" }, // Zona para las gafas
+        guantes: { top: "200px", left: "50px" }, // Zona para los guantes
+        chaleco: { top: "150px", left: "60px" }, // Zona para el chaleco
+        botas: { top: "350px", left: "70px" }, // Zona para las botas
+    };
+
     // Para evitar múltiples colocaciones
     const placedItems = new Set();
 
@@ -78,9 +87,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     newItem.style.height = eppSizes[itemType].height;
                 }
 
-                // Posicionar el EPP donde se soltó
-                newItem.style.top = `${touch.clientY - rect.top - 25}px`;
-                newItem.style.left = `${touch.clientX - rect.left - 25}px`;
+                // Posicionar el EPP en la zona específica
+                if (eppZones[itemType]) {
+                    newItem.style.top = eppZones[itemType].top;
+                    newItem.style.left = eppZones[itemType].left;
+                }
+
                 newItem.style.pointerEvents = "auto";
                 person.appendChild(newItem);
 
